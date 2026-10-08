@@ -1,0 +1,1135 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RAai AI Academy</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="background">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="grid"></div>
+</div>
+
+<!-- =========================
+     LOGIN / WELCOME
+========================= -->
+
+<div id="welcomeModal" class="welcome-overlay">
+
+    <div class="welcome-card">
+
+        <div class="brand-large">
+            <div class="brand-icon">R</div>
+
+            <div>
+                <div class="brand-name">
+                    RA<span>ai</span>
+                </div>
+                <div class="brand-subtitle">
+                    AI ACADEMY
+                </div>
+            </div>
+        </div>
+
+        <div class="welcome-badge">
+            ИНТЕЛЛЕКТУАЛЬНАЯ АКАДЕМИЯ
+        </div>
+
+        <h1>
+            Добро пожаловать<br>
+            в <span>RAai Academy</span>
+        </h1>
+
+        <p>
+            Персональный AI-преподаватель будет объяснять темы,
+            слушать ваши команды и контролировать внимание во время урока.
+        </p>
+
+        <div class="welcome-features">
+            <div>
+                <b>12+</b>
+                <span>курсов</span>
+            </div>
+
+            <div>
+                <b>36+</b>
+                <span>уроков</span>
+            </div>
+
+            <div>
+                <b>45</b>
+                <span>минут урок</span>
+            </div>
+        </div>
+
+        <form id="startForm">
+
+            <label>
+                Как вас зовут?
+            </label>
+
+            <input
+                id="nicknameInput"
+                type="text"
+                autocomplete="off"
+                placeholder="Введите имя или никнейм"
+                maxlength="24"
+                required
+            >
+
+            <label class="teacher-label">
+                Выберите преподавателя
+            </label>
+
+            <div class="teacher-select">
+
+                <button
+                    type="button"
+                    class="teacher-choice active"
+                    data-teacher="female"
+                >
+                    <div class="mini-avatar female">
+                        👩‍🏫
+                    </div>
+
+                    <div>
+                        <strong>Анна</strong>
+                        <span>Женский голос</span>
+                    </div>
+
+                    <div class="check">✓</div>
+                </button>
+
+                <button
+                    type="button"
+                    class="teacher-choice"
+                    data-teacher="male"
+                >
+                    <div class="mini-avatar male">
+                        👨‍🏫
+                    </div>
+
+                    <div>
+                        <strong>Александр</strong>
+                        <span>Мужской голос</span>
+                    </div>
+
+                    <div class="check">✓</div>
+                </button>
+
+            </div>
+
+            <button class="primary-button start-button" type="submit">
+                <span>Войти в академию</span>
+                <b>→</b>
+            </button>
+
+        </form>
+
+        <div class="welcome-note">
+            🎤 После входа вы сможете управлять уроком голосом
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     MAIN APP
+========================= -->
+
+<div id="app" class="app hidden">
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+
+        <div class="sidebar-brand">
+
+            <div class="brand-icon small">
+                R
+            </div>
+
+            <div>
+                <div class="brand-name">
+                    RA<span>ai</span>
+                </div>
+                <div class="brand-subtitle">
+                    ACADEMY
+                </div>
+            </div>
+
+        </div>
+
+        <nav class="main-nav">
+
+            <button class="nav-item active" data-page="home">
+                <span>⌂</span>
+                <b>Главная</b>
+            </button>
+
+            <button class="nav-item" data-page="courses">
+                <span>▣</span>
+                <b>Курсы</b>
+            </button>
+
+            <button class="nav-item" data-page="progress">
+                <span>◈</span>
+                <b>Мой прогресс</b>
+            </button>
+
+            <button class="nav-item" data-page="teachers">
+                <span>♙</span>
+                <b>Преподаватели</b>
+            </button>
+
+        </nav>
+
+        <div class="sidebar-bottom">
+
+            <div class="sidebar-progress">
+
+                <div class="progress-head">
+                    <span>Ваш прогресс</span>
+                    <b id="sideProgressText">0%</b>
+                </div>
+
+                <div class="progress-track">
+                    <div id="sideProgressBar" class="progress-fill"></div>
+                </div>
+
+                <small>
+                    Продолжайте обучение
+                </small>
+
+            </div>
+
+            <button id="changeUserButton" class="side-user-button">
+                <div class="avatar-small" id="sideAvatar">
+                    A
+                </div>
+
+                <div>
+                    <strong id="sideUserName">
+                        Ученик
+                    </strong>
+
+                    <span>
+                        Мой профиль
+                    </span>
+                </div>
+
+                <i>⚙</i>
+            </button>
+
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN -->
+
+    <main class="main-content">
+
+        <!-- TOPBAR -->
+
+        <header class="topbar">
+
+            <button id="mobileMenuButton" class="mobile-menu">
+                ☰
+            </button>
+
+            <div class="breadcrumb">
+                RAai Academy
+                <span>/</span>
+                <b id="breadcrumbText">Главная</b>
+            </div>
+
+            <div class="top-actions">
+
+                <div class="online-status">
+                    <span></span>
+                    AI-преподаватель онлайн
+                </div>
+
+                <button class="notification">
+                    ♢
+                </button>
+
+                <div class="top-user">
+                    <div id="topAvatar" class="avatar-small">
+                        A
+                    </div>
+
+                    <div>
+                        <strong id="topUserName">
+                            Ученик
+                        </strong>
+
+                        <span>
+                            Студент
+                        </span>
+                    </div>
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- =========================
+             HOME PAGE
+        ========================= -->
+
+        <section id="page-home" class="page active-page">
+
+            <div class="hero">
+
+                <div class="hero-content">
+
+                    <div class="eyebrow">
+                        <span class="pulse"></span>
+                        ВАША AI-АКАДЕМИЯ
+                    </div>
+
+                    <h1>
+                        Учитесь умнее.<br>
+                        <span>Становитесь сильнее.</span>
+                    </h1>
+
+                    <p>
+                        Персональная академия с AI-преподавателем,
+                        голосовыми командами, камерой контроля внимания
+                        и полноценными 45-минутными уроками.
+                    </p>
+
+                    <div class="hero-actions">
+
+                        <button
+                            id="continueButton"
+                            class="primary-button"
+                        >
+                            Продолжить обучение
+                            <b>→</b>
+                        </button>
+
+                        <button
+                            id="exploreButton"
+                            class="secondary-button"
+                        >
+                            Смотреть курсы
+                        </button>
+
+                    </div>
+
+                    <div class="hero-trust">
+                        <div class="trust-avatars">
+                            <span>👨🏻‍💻</span>
+                            <span>👩🏻‍💻</span>
+                            <span>🧑🏻‍🎓</span>
+                            <span>+</span>
+                        </div>
+
+                        <div>
+                            <strong>Персональное обучение</strong>
+                            <small>AI помогает вам не отвлекаться</small>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="hero-visual">
+
+                    <div class="floating-card card-one">
+                        <span>⏱</span>
+                        <div>
+                            <b>45:00</b>
+                            <small>Полный урок</small>
+                        </div>
+                    </div>
+
+                    <div class="teacher-preview">
+
+                        <div class="preview-glow"></div>
+
+                        <div class="teacher-face">
+                            <div class="hair"></div>
+                            <div class="face">👩🏻‍🏫</div>
+                        </div>
+
+                        <div class="preview-info">
+                            <span>AI TEACHER</span>
+                            <strong>Анна</strong>
+                            <small>
+                                Готова помочь вам сегодня
+                            </small>
+                        </div>
+
+                        <div class="sound-wave">
+                            <i></i>
+                            <i></i>
+                            <i></i>
+                            <i></i>
+                            <i></i>
+                            <i></i>
+                            <i></i>
+                        </div>
+
+                    </div>
+
+                    <div class="floating-card card-two">
+                        <span>👁</span>
+                        <div>
+                            <b>Внимание</b>
+                            <small>Контроль включён</small>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- STATS -->
+
+            <div class="stats-grid">
+
+                <div class="stat-card">
+                    <div class="stat-icon blue">◫</div>
+                    <div>
+                        <span>Доступно курсов</span>
+                        <strong>12</strong>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon purple">◈</div>
+                    <div>
+                        <span>Уроков</span>
+                        <strong>36+</strong>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon cyan">◉</div>
+                    <div>
+                        <span>Пройдено</span>
+                        <strong id="homeCompleted">0</strong>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon pink">★</div>
+                    <div>
+                        <span>Ваш уровень</span>
+                        <strong id="homeLevel">1</strong>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <!-- CONTINUE -->
+
+            <div class="section-header">
+
+                <div>
+                    <span class="section-kicker">ПЕРСОНАЛЬНО ДЛЯ ВАС</span>
+                    <h2>Продолжить обучение</h2>
+                </div>
+
+                <button id="allCoursesButton" class="text-button">
+                    Все курсы →
+                </button>
+
+            </div>
+
+            <div id="continueCourse" class="continue-course">
+
+                <div class="continue-course-icon">
+                    🐍
+                </div>
+
+                <div class="continue-main">
+
+                    <span>РЕКОМЕНДУЕМЫЙ КУРС</span>
+
+                    <h3>
+                        Python с нуля
+                    </h3>
+
+                    <p>
+                        Основы программирования, синтаксис Python,
+                        переменные, условия, циклы и функции.
+                    </p>
+
+                    <div class="continue-progress">
+
+                        <div class="progress-track">
+                            <div id="pythonProgress" class="progress-fill"></div>
+                        </div>
+
+                        <span id="pythonProgressText">
+                            0% завершено
+                        </span>
+
+                    </div>
+
+                </div>
+
+                <button
+                    class="continue-start"
+                    data-course="python"
+                >
+                    Начать урок →
+                </button>
+
+            </div>
+
+
+            <!-- COURSES PREVIEW -->
+
+            <div class="section-header">
+
+                <div>
+                    <span class="section-kicker">КАТАЛОГ</span>
+                    <h2>Популярные курсы</h2>
+                </div>
+
+                <button
+                    class="text-button"
+                    id="popularCoursesButton"
+                >
+                    Смотреть все →
+                </button>
+
+            </div>
+
+            <div id="homeCourses" class="course-grid"></div>
+
+
+            <!-- HOW -->
+
+            <div class="section-header">
+                <div>
+                    <span class="section-kicker">КАК ЭТО РАБОТАЕТ</span>
+                    <h2>Ваш AI-преподаватель</h2>
+                </div>
+            </div>
+
+            <div class="steps-grid">
+
+                <div class="step-card">
+                    <div class="step-number">01</div>
+                    <span class="step-icon">🎯</span>
+                    <h3>Выберите курс</h3>
+                    <p>
+                        Выберите направление и подходящий урок
+                        из большой библиотеки академии.
+                    </p>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-number">02</div>
+                    <span class="step-icon">🎤</span>
+                    <h3>Говорите с AI</h3>
+                    <p>
+                        Можно сказать: «Объясни ещё раз»,
+                        «Я пойду попью воды» или «Продолжаем».
+                    </p>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-number">03</div>
+                    <span class="step-icon">👁</span>
+                    <h3>Смотрите на экран</h3>
+                    <p>
+                        Камера помогает AI отслеживать внимание
+                        во время полноценного урока.
+                    </p>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-number">04</div>
+                    <span class="step-icon">🏆</span>
+                    <h3>Получайте результат</h3>
+                    <p>
+                        После завершения урока ваш прогресс
+                        автоматически обновится.
+                    </p>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             COURSES PAGE
+        ========================= -->
+
+        <section id="page-courses" class="page">
+
+            <div class="page-heading">
+
+                <div>
+                    <span class="section-kicker">БИБЛИОТЕКА ЗНАНИЙ</span>
+
+                    <h1>
+                        Все курсы
+                    </h1>
+
+                    <p>
+                        Выберите направление и начните полноценный
+                        45-минутный урок с AI-преподавателем.
+                    </p>
+                </div>
+
+                <div class="course-count">
+                    <strong>12</strong>
+                    <span>направлений</span>
+                </div>
+
+            </div>
+
+            <div class="category-tabs">
+
+                <button class="category-tab active" data-filter="all">
+                    Все
+                </button>
+
+                <button class="category-tab" data-filter="programming">
+                    Программирование
+                </button>
+
+                <button class="category-tab" data-filter="web">
+                    Web
+                </button>
+
+                <button class="category-tab" data-filter="data">
+                    Data & AI
+                </button>
+
+                <button class="category-tab" data-filter="design">
+                    Design
+                </button>
+
+            </div>
+
+            <div id="allCourses" class="course-grid large-grid"></div>
+
+        </section>
+
+
+        <!-- =========================
+             PROGRESS PAGE
+        ========================= -->
+
+        <section id="page-progress" class="page">
+
+            <div class="page-heading">
+
+                <div>
+                    <span class="section-kicker">ВАША СТАТИСТИКА</span>
+                    <h1>Мой прогресс</h1>
+                    <p>
+                        Следите за своим обучением и завершёнными уроками.
+                    </p>
+                </div>
+
+            </div>
+
+            <div class="progress-dashboard">
+
+                <div class="big-progress-card">
+
+                    <div class="circle-progress">
+                        <div>
+                            <strong id="bigProgressPercent">0%</strong>
+                            <span>пройдено</span>
+                        </div>
+                    </div>
+
+                    <div>
+                        <span class="section-kicker">
+                            ОБЩИЙ ПРОГРЕСС
+                        </span>
+
+                        <h2>
+                            Отличное начало!
+                        </h2>
+
+                        <p>
+                            Каждый завершённый урок приближает вас
+                            к следующему уровню.
+                        </p>
+                    </div>
+
+                </div>
+
+                <div class="level-card">
+
+                    <span>ТЕКУЩИЙ УРОВЕНЬ</span>
+
+                    <strong id="progressLevel">
+                        1
+                    </strong>
+
+                    <div class="xp-track">
+                        <div id="xpBar"></div>
+                    </div>
+
+                    <small id="xpText">
+                        0 / 100 XP
+                    </small>
+
+                </div>
+
+            </div>
+
+            <div class="section-header">
+                <div>
+                    <span class="section-kicker">КУРСЫ</span>
+                    <h2>Ваши результаты</h2>
+                </div>
+            </div>
+
+            <div id="progressCourses" class="progress-list"></div>
+
+        </section>
+
+
+        <!-- =========================
+             TEACHERS PAGE
+        ========================= -->
+
+        <section id="page-teachers" class="page">
+
+            <div class="page-heading">
+
+                <div>
+                    <span class="section-kicker">AI ПРЕПОДАВАТЕЛИ</span>
+                    <h1>Ваши преподаватели</h1>
+
+                    <p>
+                        Выберите голос и стиль преподавания,
+                        который вам подходит.
+                    </p>
+                </div>
+
+            </div>
+
+            <div class="teachers-grid">
+
+                <div class="teacher-card-large female-teacher">
+
+                    <div class="teacher-art">
+                        👩🏻‍🏫
+                    </div>
+
+                    <div class="teacher-card-info">
+
+                        <span>AI TEACHER</span>
+
+                        <h2>
+                            Анна
+                        </h2>
+
+                        <p>
+                            Спокойный, понятный и дружелюбный
+                            женский голос.
+                        </p>
+
+                        <div class="teacher-tags">
+                            <span>Python</span>
+                            <span>Web</span>
+                            <span>AI</span>
+                        </div>
+
+                        <button
+                            class="primary-button choose-teacher"
+                            data-teacher="female"
+                        >
+                            Выбрать Анну
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <div class="teacher-card-large male-teacher">
+
+                    <div class="teacher-art">
+                        👨🏻‍🏫
+                    </div>
+
+                    <div class="teacher-card-info">
+
+                        <span>AI TEACHER</span>
+
+                        <h2>
+                            Александр
+                        </h2>
+
+                        <p>
+                            Уверенный, энергичный и подробный
+                            мужской голос.
+                        </p>
+
+                        <div class="teacher-tags">
+                            <span>Backend</span>
+                            <span>Cyber</span>
+                            <span>Data</span>
+                        </div>
+
+                        <button
+                            class="primary-button choose-teacher"
+                            data-teacher="male"
+                        >
+                            Выбрать Александра
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<!-- =========================
+     LESSON SCREEN
+========================= -->
+
+<div id="lessonScreen" class="lesson-screen hidden">
+
+    <div class="lesson-topbar">
+
+        <div class="lesson-brand">
+
+            <button id="exitLesson" class="lesson-back">
+                ←
+            </button>
+
+            <div>
+                <strong>RAai Academy</strong>
+                <span id="lessonCourseName">
+                    Урок
+                </span>
+            </div>
+
+        </div>
+
+        <div class="lesson-timer">
+
+            <span>УРОК</span>
+
+            <strong id="lessonTimer">
+                45:00
+            </strong>
+
+        </div>
+
+        <div class="lesson-status">
+
+            <span class="status-dot"></span>
+
+            <div>
+                <strong id="attentionStatus">
+                    Контроль внимания
+                </strong>
+
+                <small>
+                    Камера активна
+                </small>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="lesson-layout">
+
+        <!-- TEACHER -->
+
+        <div class="teacher-video-panel">
+
+            <div class="teacher-video-glow"></div>
+
+            <div class="teacher-avatar-large" id="lessonTeacherAvatar">
+                👩🏻‍🏫
+            </div>
+
+            <div class="teacher-particles">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+
+            <div class="teacher-video-info">
+
+                <div>
+
+                    <span>AI-ПРЕПОДАВАТЕЛЬ</span>
+
+                    <h2 id="lessonTeacherName">
+                        Анна
+                    </h2>
+
+                    <p id="teacherSpeechStatus">
+                        Готова начать урок
+                    </p>
+
+                </div>
+
+                <div class="speaking-indicator" id="speakingIndicator">
+                    <i></i>
+                    <i></i>
+                    <i></i>
+                    <i></i>
+                    <i></i>
+                </div>
+
+            </div>
+
+            <div class="lesson-topic-card">
+
+                <span id="lessonBlockNumber">
+                    БЛОК 1 / 15
+                </span>
+
+                <strong id="lessonBlockTitle">
+                    Введение
+                </strong>
+
+                <small id="lessonBlockSubtitle">
+                    Начинаем обучение
+                </small>
+
+            </div>
+
+        </div>
+
+
+        <!-- STUDENT -->
+
+        <div class="student-camera-panel">
+
+            <div class="camera-header">
+
+                <div>
+                    <span>ВЫ</span>
+                    <strong id="studentNameLesson">
+                        Ученик
+                    </strong>
+                </div>
+
+                <span class="camera-live">
+                    LIVE
+                </span>
+
+            </div>
+
+            <video
+                id="studentCamera"
+                autoplay
+                muted
+                playsinline
+            ></video>
+
+            <div id="cameraPlaceholder" class="camera-placeholder">
+
+                <div>
+                    📷
+                </div>
+
+                <strong>
+                    Включаем камеру
+                </strong>
+
+                <small>
+                    Разрешите доступ к камере
+                </small>
+
+            </div>
+
+            <div class="camera-footer">
+
+                <span id="cameraStatus">
+                    Камера подключается...
+                </span>
+
+                <span id="attentionTimer">
+                    ● Взгляд отслеживается
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- LESSON CONTROL -->
+
+    <div class="lesson-bottom">
+
+        <div class="lesson-progress-area">
+
+            <div class="lesson-progress-head">
+
+                <span>
+                    Прогресс урока
+                </span>
+
+                <strong id="lessonProgressText">
+                    0%
+                </strong>
+
+            </div>
+
+            <div class="lesson-progress-track">
+                <div id="lessonProgressBar"></div>
+            </div>
+
+        </div>
+
+
+        <div class="voice-command-hint">
+
+            <span class="mic-icon">
+                🎤
+            </span>
+
+            <div>
+
+                <strong>
+                    Голосовое управление активно
+                </strong>
+
+                <small>
+                    «Я пойду попью воды» · «Объясни ещё раз» ·
+                    «Продолжаем» · «Покажи пример»
+                </small>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- BREAK OVERLAY -->
+
+    <div id="breakOverlay" class="break-overlay hidden">
+
+        <div class="break-card">
+
+            <div class="break-icon">
+                💧
+            </div>
+
+            <span>ГОЛОСОВАЯ КОМАНДА</span>
+
+            <h2>
+                Перерыв
+            </h2>
+
+            <p>
+                Хорошо. Можете спокойно попить воды.
+                Когда вернётесь, скажите:
+            </p>
+
+            <strong>
+                «Я вернулся»
+            </strong>
+
+            <div class="break-loader"></div>
+
+        </div>
+
+    </div>
+
+
+    <!-- COMPLETED -->
+
+    <div id="completeOverlay" class="complete-overlay hidden">
+
+        <div class="complete-card">
+
+            <div class="complete-icon">
+                🏆
+            </div>
+
+            <span>УРОК ЗАВЕРШЁН</span>
+
+            <h2>
+                Отличная работа!
+            </h2>
+
+            <p>
+                Вы полностью прошли 45-минутный урок.
+                Ваш прогресс сохранён.
+            </p>
+
+            <div class="complete-stats">
+
+                <div>
+                    <strong>45</strong>
+                    <span>минут</span>
+                </div>
+
+                <div>
+                    <strong>+100</strong>
+                    <span>XP</span>
+                </div>
+
+                <div>
+                    <strong>100%</strong>
+                    <span>урок</span>
+                </div>
+
+            </div>
+
+            <button
+                id="completeClose"
+                class="primary-button"
+            >
+                Вернуться в академию →
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- MediaPipe -->
+
+<script src="https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/face_mesh.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js"></script>
+
+<script src="script.js"></script>
+
+</body>
+</html>
